@@ -8,7 +8,7 @@ import {
   postalCodeValidation,
 } from '../utils/validations';
 
-// SIGNUP/LOGIN Input Values
+// SIGNUP/LOGIN INitial Values
 const INIT_VALUES = {
   email: '',
   password: '',
@@ -49,6 +49,7 @@ export default class Login extends Component {
   resetInputs = () => {
     Object.keys(this.state.inputValues).map((key) => {
       this.setState((prevState) => ({
+        error: {},
         inputValues: {
           ...prevState.inputValues,
           [key]: '',
@@ -150,22 +151,19 @@ export default class Login extends Component {
 
   handleLogin = (e) => {
     e.preventDefault();
-    const { handleLogin } = this.props;
     const { loginEmail, loginPassword } = this.state.inputValues;
+    let errorText;
 
     this.props.users.find((user) => {
-      if (user.email === loginEmail) {
-        if (user.password === loginPassword) {
-          handleLogin(user);
-          this.resetInputs();
-        } else {
-          console.error('password is incorrect');
-          this.setState((prevState) => ({
-            inputValues: { ...prevState.inputValues, password: '' },
-          }));
-        }
+      if (user.email === loginEmail && user.password === loginPassword) {
+        this.props.handleLogin(user);
+        this.resetInputs();
+        this.props.handleSwitchScreen('checkout');
       } else {
-        console.error('user does not exist');
+        errorText = 'Email or password is incorrect';
+        this.setState((prevState) => ({
+          error: { ...prevState.error, loginEmailError: errorText },
+        }));
       }
     });
   };
@@ -176,12 +174,14 @@ export default class Login extends Component {
         name: 'loginEmail',
         type: 'email',
         label: 'Email Address',
+        error: 'loginEmailError',
       },
       {
         name: 'loginPassword',
         type: 'password',
         icon: true,
         label: 'Password',
+        error: 'loginPasswordError',
       },
     ];
 
@@ -228,7 +228,7 @@ export default class Login extends Component {
     ];
 
     return (
-      <div className='m-auto rounded-md shadow-lg max-w-lg py-8'>
+      <div className='m-auto rounded-md shadow-2xl max-w-lg py-8'>
         <div className='flex justify-around text-center mb-3'>
           <button
             className={`cursor-pointer w-full border-b-2 ${

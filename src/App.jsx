@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Login from './components/Login';
+import Checkout from './components/Checkout';
 
 export default class App extends Component {
   state = {
@@ -14,6 +15,7 @@ export default class App extends Component {
       },
     ],
     loggedInUser: {},
+    screen: 'login',
   };
 
   createNewUser = (newUser) => {
@@ -24,14 +26,20 @@ export default class App extends Component {
 
   handleLogin = (user) => this.setState({ loggedInUser: user });
 
+  handleSwitchScreen = (value) => this.setState({ screen: value });
+
   render() {
     return (
       <div className='font-fira font-light m-auto'>
-        <Login
-          users={this.state.users}
-          createNewUser={this.createNewUser}
-          handleLogin={this.handleLogin}
-        />
+        {this.state.screen === 'login' && (
+          <Login
+            users={this.state.users}
+            createNewUser={this.createNewUser}
+            handleLogin={this.handleLogin}
+            handleSwitchScreen={this.handleSwitchScreen}
+          />
+        )}
+        {this.state.screen === 'checkout' && <Checkout />}
       </div>
     );
   }
