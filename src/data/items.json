@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "img": "/src/assets/nextreact.png",
+    "name": "Next.js Functional Video Uploader",
+    "desc": "Learn NextJS from the ground up and build production-ready, fullstack ReactJS apps with the NextJS framework!",
+    "author": "Maximilian Schwarzmüller",
+    "rating": 4.8,
+    "price": 14.99,
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "img": "/src/assets/Learn-Reactjs.png",
+    "name": "React Todo App",
+    "desc": "Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!",
+    "author": "Academind by Maximilian Schwarzmüller",
+    "rating": 4.6,
+    "price": 19.99,
+    "quantity": 1
+  },
+  {
+    "id": 3,
+    "img": "/src/assets/react_js.png",
+    "name": "Component Library for React",
+    "desc": "Updated! Become a Senior React Developer. Build a massive E-commerce app with Redux, Hooks, GraphQL, Stripe, Firebase",
+    "author": "Andrei Neagoie, Yihua Zhang, Zero to Mastery",
+    "rating": 4.6,
+    "price": 14.99,
+    "quantity": 1
+  },
+  {
+    "id": 4,
+    "img": "/src/assets/reactNative.png",
+    "name": "Graphing Component in React",
+    "desc": "Learn React by Building 25+ Interesting Projects",
+    "author": "John Smilga",
+    "rating": 4.7,
+    "price": 13.99,
+    "quantity": 1
+  },
+  {
+    "id": 5,
+    "img": "/src/assets/javascript.png",
+    "name": "Useful Functions for Javascript",
+    "desc": "An advanced JavaScript course for everyone! Scope, closures, prototypes, 'this', build your own framework, and more.",
+    "author": "Anthony Alicea",
+    "rating": 4.8,
+    "price": 16.99,
+    "quantity": 1
+  },
+  {
+    "id": 6,
+    "img": "/src/assets/beginnerReact.png",
+    "name": "React Live Audio Stream Component",
+    "desc": "Master React and Redux Toolkit. Includes RTK Query, tons of custom hooks, and more! Course 100% Updated November 2022",
+    "author": "Stephen Grider",
+    "rating": 4.7,
+    "price": 16.99,
+    "quantity": 1
+  }
+]
