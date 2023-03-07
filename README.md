@@ -43,10 +43,10 @@ The goal is to master components, props, state and conditional UI rendering.
 
 ### :shopping_cart: Customer Cart
 
-- [ ] Create a cart that has 2-5 items in it
-- [ ] These should be actual components with item value
+- [x] Create a cart that has 2-5 items in it
+- [x] These should be actual components with item value
 - [ ] The total sum of all items should be calculated as a total
-- [ ] Items can be removed and quantities can be increased or decreased -- cart total should adjust accordingly
+- [x] Items can be removed and quantities can be increased or decreased -- cart total should adjust accordingly
 - [ ] If there are zero cart items the Checkout button should be disabled
 - [ ] If Checkout is selected move to the shipping screen
 
