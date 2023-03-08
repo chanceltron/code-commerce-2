@@ -14,11 +14,11 @@ export default class ItemCard extends Component {
           onClick={() => removeFromCart(id)}>
           <i className='fa-regular fa-trash-can'></i>
         </button>
-        <div className={`flex flex-[4] ${column}`}>
+        <div className={`@container flex flex-[4] ${column}`}>
           <img
             src={img}
             alt={name}
-            className='rounded-md max-w-[150px] w-auto object-cover h-fit mr-3'
+            className='rounded-md max-w-[200px] w-auto object-cover h-fit mr-3 @md:max-w-[150px]'
           />
           <div>
             <h3 className='font-medium'>{name}</h3>

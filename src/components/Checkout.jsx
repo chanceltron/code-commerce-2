@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ItemCard from './ItemCard';
 import Stepper from './Stepper';
+import Cart from './Cart';
+import Shipping from './Shipping';
 
 export default class Checkout extends Component {
   state = {
@@ -10,7 +12,7 @@ export default class Checkout extends Component {
       discount: 0,
       total: 0,
     },
-    formStep: 1,
+    formStep: 2,
   };
 
   updateSummaryPrices = () => {
@@ -61,23 +63,15 @@ export default class Checkout extends Component {
             />
           </div>
           <div className='bg-white m-2 p-3 rounded'>
-            {formStep === 1 ? (
-              cart.length > 0 ? (
-                cart.map((item) => (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    formStep={formStep}
-                    changeQuantity={this.changeQuantity}
-                    removeFromCart={this.removeFromCart}
-                  />
-                ))
-              ) : (
-                <div className='text-center py-8 rounded-lg bg-red-100 text-red-600 font-semibold'>
-                  There are no items in your cart!
-                </div>
-              )
-            ) : null}
+            {formStep === 1 && (
+              <Cart
+                changeQuantity={this.changeQuantity}
+                removeFromCart={this.removeFromCart}
+                formStep={formStep}
+                cart={cart}
+              />
+            )}
+            {formStep === 2 && <Shipping />}
             {formStep !== 4 && (
               <div className='flex justify-between items-center mx-10 mt-8 text-white text-xl font-medium'>
                 <button
@@ -116,15 +110,12 @@ export default class Checkout extends Component {
           )}
           {formStep > 1 && (
             <div className='py-4 border-b-2'>
-              {cart.map((item) => (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  formStep={formStep}
-                  changeQuantity={this.changeQuantity}
-                  removeFromCart={this.removeFromCart}
-                />
-              ))}
+              <Cart
+                changeQuantity={this.changeQuantity}
+                removeFromCart={this.removeFromCart}
+                formStep={formStep}
+                cart={cart}
+              />
             </div>
           )}
           <div className='py-4 border-b-2'>
