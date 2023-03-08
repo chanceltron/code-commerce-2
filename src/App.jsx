@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Login from './components/Login';
 import Checkout from './components/Checkout';
+import { items } from './data/items';
 
 export default class App extends Component {
   state = {
@@ -14,8 +15,9 @@ export default class App extends Component {
         postalCode: 55555,
       },
     ],
+    cart: [items[0], items[1], items[4], items[5]],
     loggedInUser: {},
-    screen: 'login',
+    screen: 'checkout',
   };
 
   createNewUser = (newUser) => {
@@ -24,22 +26,37 @@ export default class App extends Component {
     }));
   };
 
-  handleLogin = (user) => this.setState({ loggedInUser: user });
-
-  handleSwitchScreen = (value) => this.setState({ screen: value });
-
   render() {
+    const { users, screen, cart } = this.state;
     return (
       <div className='font-fira font-light m-auto'>
-        {this.state.screen === 'login' && (
+        {screen === 'login' && (
           <Login
-            users={this.state.users}
+            users={users}
             createNewUser={this.createNewUser}
-            handleLogin={this.handleLogin}
-            handleSwitchScreen={this.handleSwitchScreen}
+            loginUser={(email, password) =>
+              this.setState({ loggedInUser: { email, password } })
+            }
+            changeScreen={(screenName) => this.setState({ screen: screenName })}
           />
         )}
-        {this.state.screen === 'checkout' && <Checkout />}
+        {screen === 'checkout' && (
+          <Checkout
+            cart={cart}
+            removeFromCart={(id) =>
+              this.setState({
+                cart: this.state.cart.filter((item) => item.id !== id),
+              })
+            }
+            changeQuantity={(id, value) =>
+              this.setState({
+                cart: this.state.cart.map((item) =>
+                  item.id === id ? { ...item, quantity: +value } : item
+                ),
+              })
+            }
+          />
+        )}
       </div>
     );
   }

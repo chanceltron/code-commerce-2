@@ -149,16 +149,16 @@ export default class Login extends Component {
     }
   };
 
-  handleLogin = (e) => {
+  loginUser = (e) => {
     e.preventDefault();
     const { loginEmail, loginPassword } = this.state.inputValues;
     let errorText;
 
     this.props.users.find((user) => {
       if (user.email === loginEmail && user.password === loginPassword) {
-        this.props.handleLogin(user);
+        this.props.loginUser(loginEmail, loginPassword);
         this.resetInputs();
-        this.props.handleSwitchScreen('checkout');
+        this.props.changeScreen('checkout');
       } else {
         errorText = 'Email or password is incorrect';
         this.setState((prevState) => ({
@@ -275,7 +275,7 @@ export default class Login extends Component {
             onClick={
               this.state.activeScreen === 'signup'
                 ? this.handleNewUser
-                : this.handleLogin
+                : this.loginUser
             }>
             Sign {this.state.activeScreen === 'signup' ? 'up' : 'in'}
           </button>
