@@ -52,13 +52,13 @@ The goal is to master components, props, state and conditional UI rendering.
 
 ### :airplane: Shipping Information
 
-- [ ] Show all shipping fields as depicted in the screenshot below
-- [ ] Have standard and express shipping options -- the shipping & handling/checkout prices should adjust accordingly
-- [ ] Ensure phone fields cannot take text (only numbers)
-- [ ] Ensure postal code cannot take text (only numbers)
-- [ ] Make sure all fields are completed or prevent the user from moving forward. Show appropriate error messages
-- [ ] Back to cart button should go back to cart
-- [ ] There should be a Next or "Payment" button to go to next screen
+- [x] Show all shipping fields as depicted in the screenshot below
+- [x] Have standard and express shipping options -- the shipping & handling/checkout prices should adjust accordingly
+- [x] Ensure phone fields cannot take text (only numbers)
+- [x] Ensure postal code cannot take text (only numbers)
+- [x] Make sure all fields are completed or prevent the user from moving forward. Show appropriate error messages
+- [x] Back to cart button should go back to cart
+- [x] There should be a Next or "Payment" button to go to next screen
 
 ### :credit_card: Payment Information
 
