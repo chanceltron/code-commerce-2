@@ -101,7 +101,7 @@ export const passwordComplexityValidation = (value) => {
   ) {
     undefined;
   } else {
-    return 'Password does not meet requirements';
+    return 'Does not meet requirements';
   }
 };
 
@@ -111,4 +111,27 @@ export const passwordMatchValidation = (initPassword, confirmPassword) => {
   } else {
     return 'Passwords Do Not Match';
   }
+};
+
+export const formatPhoneNumber = (number) => {
+  if (!number) return number;
+  const phoneNumber = number.replace(/[^\d]/g, '');
+  if (phoneNumber.length < 4) return phoneNumber;
+  if (phoneNumber.length < 7) {
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+  }
+  return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+    3,
+    6
+  )}-${phoneNumber.slice(6, 10)}`;
+};
+
+export const formatZipCode = (zip) => {
+  if (!zip) return zip;
+  return zip.replace(/[^\d]/g, '');
+};
+
+export const formatName = (name) => {
+  if (!name) return name;
+  return name.replace(/[^a-z ]+/i, '');
 };
