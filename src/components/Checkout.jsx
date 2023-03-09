@@ -55,7 +55,7 @@ export default class Checkout extends Component {
   }
 
   render() {
-    const { formStep, summary, shippingFormCompleted, cartLength } = this.state;
+    const { formStep, summary, cartLength } = this.state;
     const { cart } = this.props;
 
     return (
