@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TextInput from './TextInput';
+import Input from './Input';
 import {
   emailValidation,
   passwordComplexityValidation,
@@ -36,8 +36,7 @@ export default class Login extends Component {
     this.resetInputs();
   };
 
-  handleInputs = (e) => {
-    const { name, value } = e.target;
+  handleInputs = (name, value) => {
     this.setState((prevState) => ({
       inputValues: {
         ...prevState.inputValues,
@@ -250,7 +249,7 @@ export default class Login extends Component {
         <form action='' className='flex flex-col p-4'>
           {this.state.activeScreen === 'signup'
             ? signupInputs.map((input) => (
-                <TextInput
+                <Input
                   key={input.name}
                   input={input}
                   value={this.state.inputValues[input.name]}
@@ -260,7 +259,7 @@ export default class Login extends Component {
                 />
               ))
             : loginInputs.map((input) => (
-                <TextInput
+                <Input
                   key={input.name}
                   input={input}
                   value={this.state.inputValues[input.name]}

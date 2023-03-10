@@ -77,7 +77,7 @@ export default class Stepper extends Component {
               </div>
               {stepper.id !== 4 && (
                 <div
-                  className={`absolute h-2 w-28 z-0 ${stepper.bar} sm:w-40 lg:w-60`}></div>
+                  className={`absolute h-2 w-28 z-0 ${stepper.bar} sm:w-40 md:w-32 lg:w-60`}></div>
               )}
             </div>
           );
