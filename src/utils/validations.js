@@ -140,7 +140,7 @@ export const formatPhoneNumber = (number) => {
 
 export const formatZipCode = (zip) => {
   if (!zip) return zip;
-  return zip.match(/^\d{5}$/);
+  return zip.replace(/[^\d]/g, '');
 };
 
 export const formatName = (name) => {

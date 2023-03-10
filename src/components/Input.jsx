@@ -42,20 +42,21 @@ export default class Input extends Component {
         break;
     }
     handleInputs(name, inputValue);
-    !checkIfFormCompleted ? null : checkIfFormCompleted();
+    checkIfFormCompleted ? checkIfFormCompleted() : null;
   };
 
   render() {
+    const { type } = this.state;
     const { value, handleBlurValidation, errorMessage, cardType } = this.props;
-    const { name, label, type, icon, info, options, styles } = this.props.input;
+    const { name, label, icon, info, options, styles } = this.props.input;
     return (
       <div
-        className={`text-left w-fit ${
-          styles !== 'inline' ? 'w-full lg:w-1/3' : ''
+        className={`@container text-left ${
+          styles === 'inline' ? 'w-full' : 'w-full'
         }`}>
         <label htmlFor={name}>{label}</label>
         <div
-          className={`relative flex justify-between items-center border-2 px-2 outline-gray-300 rounded focus:outline-pink-600 ${
+          className={`relative flex justify-between w-full @lg:w-1/2 items-center border-2 px-2 outline-gray-300 rounded focus:outline-pink-600 ${
             errorMessage && 'border-red-500 bg-red-100'
           }`}>
           {type === 'text' || type === 'password' || type === 'email' ? (

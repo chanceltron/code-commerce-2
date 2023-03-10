@@ -36,8 +36,7 @@ export default class Login extends Component {
     this.resetInputs();
   };
 
-  handleInputs = (e) => {
-    const { name, value } = e.target;
+  handleInputs = (name, value) => {
     this.setState((prevState) => ({
       inputValues: {
         ...prevState.inputValues,

@@ -20,7 +20,9 @@ export default class Confirmation extends Component {
             className='my-2 bg-black text-white py-4 px-14 font-medium text-lg hover:bg-stone-700'>
             TRACK ORDER
           </button>
-          <button className='my-2 border border-black py-2 px-4 hover:bg-black hover:text-white'>
+          <button
+            onClick={() => window.location.reload()}
+            className='my-2 border border-black py-2 px-4 hover:bg-black hover:text-white'>
             BACK TO HOME PAGE
           </button>
         </div>

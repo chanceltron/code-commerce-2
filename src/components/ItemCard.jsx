@@ -6,10 +6,10 @@ export default class ItemCard extends Component {
     const { id, img, name, desc, author, rating, price, quantity } =
       this.props.item;
     const hidden = formStep > 1 ? 'hidden' : '';
-    const column = formStep > 1 ? 'flex-col' : '';
+    const column = formStep > 1 ? 'flex-col' : 'flex-row';
     return (
       <div className='my-3 flex flex-col lg:flex-row'>
-        <div className={`flex flex-col ${column} lg:flex-row lg:flex-[4]`}>
+        <div className={`flex flex-col lg:${column} lg:flex-[4]`}>
           <img
             src={img}
             alt={name}

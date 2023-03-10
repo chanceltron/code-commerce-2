@@ -23,17 +23,9 @@ export default class Checkout extends Component {
       state: 'TX',
       city: 'Dallas',
     },
-    paymentInfo: {
-      cardHolderName: 'Test User',
-      cardNumber: '4555 5555 5555 1234',
-      cardType: 'VISA',
-      cvv: '123',
-      expMonth: '03',
-      expYear: '27',
-      total: '68.96',
-    },
+    paymentInfo: {},
     promoCode: '',
-    formStep: 2,
+    formStep: 1,
     cartLength: 0,
   };
 
