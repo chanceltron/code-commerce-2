@@ -12,7 +12,9 @@ export default class Checkout extends Component {
       discount: 0,
       total: 0,
     },
+    discountCodes: ['discount5', 'discount10'],
     shippingInfo: {},
+    promoCode: '',
     formStep: 3,
     cartLength: 0,
   };
@@ -47,6 +49,18 @@ export default class Checkout extends Component {
   removeFromCart = async (id) => {
     await this.props.removeFromCart(id);
     await this.updateSummaryPrices();
+  };
+
+  applyDiscount = async (e) => {
+    e.preventDefault();
+    const { discountCodes, summary, promoCode } = this.state;
+    if (discountCodes.includes(promoCode)) {
+      const discount = promoCode === 'discount5' ? 5 : 10;
+      await this.setState({
+        summary: { ...summary, discount: discount },
+      });
+      await this.updateSummaryPrices();
+    }
   };
 
   componentDidMount() {
@@ -111,15 +125,23 @@ export default class Checkout extends Component {
               </div>
               <div className='py-4 border-b-2'>
                 <h4 className=''>Do you have a promo code?</h4>
-                <div className='flex justify-between gap-3'>
+                <form
+                  onSubmit={this.applyDiscount}
+                  className='flex justify-between gap-3'>
                   <input
+                    value={this.state.promoCode}
                     type='text'
                     placeholder='Enter promo code'
-                    className='font-code border-2 border-stone-500 p-2 w-full'></input>
-                  <button className='border-2 border-stone-500 text-stone-500 py-2 px-4 font-medium transition-all hover:text-white hover:bg-stone-500'>
-                    APPLY
-                  </button>
-                </div>
+                    className='font-code border-2 border-stone-500 p-2 w-full'
+                    onChange={(e) =>
+                      this.setState({ promoCode: e.target.value })
+                    }
+                  />
+                  <input
+                    type='submit'
+                    value='APPLY'
+                    className='border-2 border-stone-500 text-stone-500 py-2 px-4 font-medium transition-all hover:text-white hover:bg-stone-500'></input>
+                </form>
               </div>
             </div>
           )}
