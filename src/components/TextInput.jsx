@@ -4,6 +4,7 @@ import {
   formatName,
   formatZipCode,
 } from '../utils/validations';
+import { CARDICON } from '../utils/constants';
 
 export default class TextInput extends Component {
   state = {
@@ -20,6 +21,7 @@ export default class TextInput extends Component {
   };
 
   handleInputs = ({ target: { name, value } }) => {
+    const { formStep, handleInputs, checkIfFormCompleted } = this.props;
     let inputValue = value;
     switch (name) {
       case 'cellPhone':
@@ -29,22 +31,26 @@ export default class TextInput extends Component {
       case 'postalCode':
         inputValue = formatZipCode(value);
         break;
-      case 'fullName':
+      case ('fullName',
+      'firstName',
+      'lastName',
+      'addressTitle',
+      'cardHolderName'):
         inputValue = formatName(value);
         break;
       default:
         break;
     }
-    this.props.handleInputs(name, inputValue);
-    this.props.checkIfShippingFormCompleted();
+    handleInputs(name, inputValue);
+    !checkIfFormCompleted ? null : checkIfFormCompleted();
   };
 
   render() {
-    const { value, handleBlurValidation, errorMessage } = this.props;
+    const { value, handleBlurValidation, errorMessage, cardType } = this.props;
     const { name, label, type, icon, info, options, styles } = this.props.input;
     return (
       <div
-        className={`text-left ${
+        className={`text-left w-fit ${
           styles !== 'inline' ? 'w-full md:w-1/3 md:mr-[30rem]' : ''
         }`}>
         <label htmlFor={name}>{label}</label>
@@ -60,7 +66,7 @@ export default class TextInput extends Component {
               className='w-full py-1 outline-none bg-transparent'
               value={value}
               onChange={this.handleInputs}
-              // onBlur={(e) => handleBlurValidation(e)}
+              onBlur={handleBlurValidation}
             />
           ) : null}
           {type === 'select' && (
@@ -76,7 +82,7 @@ export default class TextInput extends Component {
               ))}
             </select>
           )}
-          {icon && (
+          {icon === 'password' && (
             <button
               className='flex items-center justify-center'
               onClick={this.handleShowPassword}>
@@ -86,6 +92,18 @@ export default class TextInput extends Component {
                 }`}
               />
             </button>
+          )}
+          {icon === 'card' && (
+            <div className='flex items-center justify-center'>
+              {cardType && (
+                <img
+                  src={`${CARDICON[cardType]}`}
+                  className={`w-fit h-8 ${console.log({
+                    'render: ': cardType,
+                  })}`}
+                />
+              )}
+            </div>
           )}
           {errorMessage ? (
             <div className='absolute top-[-25px] right-0 text-red-500'>

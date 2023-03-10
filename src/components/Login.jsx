@@ -195,7 +195,7 @@ export default class Login extends Component {
       {
         name: 'password',
         type: 'password',
-        icon: true,
+        icon: 'password',
         label: 'Create Password *',
         info: 'Password must be 8-20 characters, including at least once capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
         error: 'passwordComplexityError',
@@ -203,7 +203,7 @@ export default class Login extends Component {
       {
         name: 'confirmPassword',
         type: 'password',
-        icon: true,
+        icon: 'password',
         label: 'Confirm Password *',
         error: 'passwordMatchError',
       },

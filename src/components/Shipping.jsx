@@ -32,6 +32,7 @@ export default class Shipping extends Component {
   };
 
   submitShippingForm = (e) => {
+    const { submitShippingForm, changeFormStep } = this.props;
     e.preventDefault();
     const {
       addressTitle,
@@ -45,7 +46,7 @@ export default class Shipping extends Component {
       telephone,
     } = this.state;
 
-    this.props.submitShippingForm({
+    submitShippingForm({
       addressTitle,
       fullName,
       address,
@@ -56,7 +57,7 @@ export default class Shipping extends Component {
       cellPhone,
       telephone,
     });
-    this.props.changeFormStep(3);
+    changeFormStep(3);
   };
 
   checkIfShippingFormCompleted = () => {
@@ -172,7 +173,8 @@ export default class Shipping extends Component {
                 key={input.name}
                 input={input}
                 value={this.state[input.name]}
-                checkIfShippingFormCompleted={this.checkIfShippingFormCompleted}
+                formStep={formStep}
+                checkIfFormCompleted={this.checkIfShippingFormCompleted}
                 handleInputs={(name, value) => {
                   this.setState(() => ({ [name]: value }));
                   name === 'state' && this.getCities(value);
@@ -212,29 +214,28 @@ export default class Shipping extends Component {
             </label>
           </div>
         </div>
-        {formStep !== 4 && (
-          <div className='flex justify-between items-center mt-8 text-white text-xl font-medium md:mx-10'>
-            <button
-              disabled={formStep === 1}
-              onClick={() => this.props.changeFormStep(1)}
-              className='px-8 py-2 bg-stone-400 rounded hover:bg-stone-300 disabled:bg-stone-200'>
-              Back
-            </button>
-            <button
-              disabled={!shippingFormCompleted}
-              onClick={this.submitShippingForm}
-              className='relative group flex px-8 py-2 bg-pink-600 rounded hover:bg-pink-500 disabled:bg-pink-200'>
-              Next
-              {!shippingFormCompleted && (
-                <span
-                  className='absolute w-36 -top-12 transition-all left-1/2 transform -translate-x-1/2 translate-y-1/2
+
+        <div className='flex justify-between items-center mt-8 text-white text-xl font-medium md:mx-10'>
+          <button
+            disabled={formStep === 1}
+            onClick={() => this.props.changeFormStep(1)}
+            className='px-8 py-2 bg-stone-400 rounded hover:bg-stone-300 disabled:bg-stone-200'>
+            Back
+          </button>
+          <button
+            disabled={!shippingFormCompleted}
+            onClick={this.submitShippingForm}
+            className='relative group flex px-8 py-2 bg-pink-600 rounded hover:bg-pink-500 disabled:bg-pink-200'>
+            Next
+            {!shippingFormCompleted && (
+              <span
+                className='absolute w-36 -top-12 transition-all left-1/2 transform -translate-x-1/2 translate-y-1/2
 scale-0 rounded-xl border border-pink-600 bg-white p-2 text-xs text-pink-600 font-medium group-hover:scale-100'>
-                  please fill out all fields
-                </span>
-              )}
-            </button>
-          </div>
-        )}
+                please fill out all fields
+              </span>
+            )}
+          </button>
+        </div>
       </div>
     );
   }

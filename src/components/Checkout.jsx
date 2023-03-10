@@ -3,6 +3,7 @@ import ItemCard from './ItemCard';
 import Stepper from './Stepper';
 import Cart from './Cart';
 import Shipping from './Shipping';
+import Payment from './Payment';
 
 export default class Checkout extends Component {
   state = {
@@ -12,7 +13,16 @@ export default class Checkout extends Component {
       discount: 0,
       total: 0,
     },
-    shippingInfo: {},
+    discountCodes: ['discount5', 'discount10'],
+    shippingInfo: {
+      fullName: 'Test Customer',
+      address: '123 Test St',
+      postalCode: '55555',
+      state: 'TX',
+      city: 'Dallas',
+    },
+    paymentInfo: {},
+    promoCode: '',
     formStep: 3,
     cartLength: 0,
   };
@@ -49,13 +59,25 @@ export default class Checkout extends Component {
     await this.updateSummaryPrices();
   };
 
+  applyDiscount = async (e) => {
+    e.preventDefault();
+    const { discountCodes, summary, promoCode } = this.state;
+    if (discountCodes.includes(promoCode)) {
+      const discount = promoCode === 'discount5' ? 5 : 10;
+      await this.setState({
+        summary: { ...summary, discount: discount },
+      });
+      await this.updateSummaryPrices();
+    }
+  };
+
   componentDidMount() {
     this.updateSummaryPrices();
     this.updateTotalQuantity();
   }
 
   render() {
-    const { formStep, summary, shippingFormCompleted, cartLength } = this.state;
+    const { formStep, summary, cartLength } = this.state;
     const { cart } = this.props;
 
     return (
@@ -95,6 +117,15 @@ export default class Checkout extends Component {
                 }}
               />
             )}
+            {formStep === 3 && (
+              <Payment
+                total={summary.total}
+                changeFormStep={(step) => this.setState({ formStep: step })}
+                submitPaymentForm={(info) =>
+                  this.setState({ paymentInfo: info })
+                }
+              />
+            )}
           </div>
         </div>
         <div className='bg-white flex-1 m-2 px-4 rounded'>
@@ -111,15 +142,23 @@ export default class Checkout extends Component {
               </div>
               <div className='py-4 border-b-2'>
                 <h4 className=''>Do you have a promo code?</h4>
-                <div className='flex justify-between gap-3'>
+                <form
+                  onSubmit={this.applyDiscount}
+                  className='flex justify-between gap-3'>
                   <input
+                    value={this.state.promoCode}
                     type='text'
                     placeholder='Enter promo code'
-                    className='font-code border-2 border-stone-500 p-2 w-full'></input>
-                  <button className='border-2 border-stone-500 text-stone-500 py-2 px-4 font-medium transition-all hover:text-white hover:bg-stone-500'>
-                    APPLY
-                  </button>
-                </div>
+                    className='font-code border-2 border-stone-500 p-2 w-full'
+                    onChange={(e) =>
+                      this.setState({ promoCode: e.target.value })
+                    }
+                  />
+                  <input
+                    type='submit'
+                    value='APPLY'
+                    className='border-2 border-stone-500 text-stone-500 py-2 px-4 font-medium transition-all hover:text-white hover:bg-stone-500'></input>
+                </form>
               </div>
             </div>
           )}
@@ -131,6 +170,21 @@ export default class Checkout extends Component {
                 formStep={formStep}
                 cart={cart}
               />
+            </div>
+          )}
+          {formStep === 3 && (
+            <div className='py-4 border-b-2'>
+              <h4 className='font-medium'>Shipping Information</h4>
+              <div className='flex flex-col'>
+                <p>{this.state.shippingInfo.fullName}</p>
+                <p>{this.state.shippingInfo.address}</p>
+                <p>
+                  {this.state.shippingInfo.city},{' '}
+                  {this.state.shippingInfo.state}{' '}
+                  {this.state.shippingInfo.postalCode}
+                </p>
+                <p>{this.state.shippingInfo.country}</p>
+              </div>
             </div>
           )}
           <div className='py-4 border-b-2'>

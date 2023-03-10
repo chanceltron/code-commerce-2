@@ -43,6 +43,18 @@ export const expiryValidation = (value) => {
   }
 };
 
+export const securityCodeValidation = (value) => {
+  if (value) {
+    if (/^[0-9]{3,4}$/.test(value)) {
+      return undefined;
+    } else {
+      return 'Invalid Security Code';
+    }
+  } else {
+    return 'This field is required';
+  }
+};
+
 export const onlyTextValidation = (value) => {
   if (value) {
     if (/^[a-zA-Z ]*$/i.test(value)) {
@@ -128,7 +140,7 @@ export const formatPhoneNumber = (number) => {
 
 export const formatZipCode = (zip) => {
   if (!zip) return zip;
-  return zip.replace(/[^\d]/g, '');
+  return zip.match(/^\d{5}$/);
 };
 
 export const formatName = (name) => {

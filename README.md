@@ -62,14 +62,14 @@ The goal is to master components, props, state and conditional UI rendering.
 
 ### :credit_card: Payment Information
 
-- [ ] Create a credit card formatted that takes all major credit cards (Visa, Master Card, American Express, etc)
-- [ ] Format the credit card field so the numbers are properly spaced (we don't want it to look ugly!)
-- [ ] Have a dropdown for month and year for expiration dates
-- [ ] Show errors if fields are entered incorrectly
-- [ ] The Pay button should show the total price. If the fields are not complete this button should be disabled
-- [ ] Make sure to show the cart/total at the right (or somewhere else)
-- [ ] The Pay button should take the user to the confirmation screen
-- [ ] A user should be able to apply a promo code and receive a discount
+- [x] Create a credit card formatted that takes all major credit cards (Visa, Master Card, American Express, etc)
+- [x] Format the credit card field so the numbers are properly spaced (we don't want it to look ugly!)
+- [x] Have a dropdown for month and year for expiration dates
+- [x] Show errors if fields are entered incorrectly
+- [x] The Pay button should show the total price. If the fields are not complete this button should be disabled
+- [x] Make sure to show the cart/total at the right (or somewhere else)
+- [x] The Pay button should take the user to the confirmation screen
+- [x] A user should be able to apply a promo code and receive a discount
 
 ### :white_check_mark: Confirmation Screen
 
