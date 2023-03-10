@@ -33,7 +33,7 @@ export default class Checkout extends Component {
       total: '68.96',
     },
     promoCode: '',
-    formStep: 4,
+    formStep: 2,
     cartLength: 0,
   };
 
@@ -139,7 +139,7 @@ export default class Checkout extends Component {
             {formStep === 4 && <Confirmation />}
           </div>
         </div>
-        <div className='bg-white flex-1 m-2 px-4 rounded'>
+        <div className='bg-white flex-1 m-2 px-4 rounded min-w-[300px]'>
           <h2 className='text-right text-2xl font-semibold uppercase py-4 border-b-2'>
             Summary
           </h2>
@@ -203,13 +203,19 @@ export default class Checkout extends Component {
               <h4 className='font-medium'>Payment Information</h4>
               <div className='flex flex-col'>
                 <p>{this.state.paymentInfo.cardHolderName}</p>
-                <div className='flex items-center'>
-                  <img
-                    src={CARDICON[this.state.paymentInfo.cardType]}
-                    alt=''
-                    className='h-8'
-                  />
-                  <p>...{this.state.paymentInfo.cardNumber.slice(-4)}</p>
+                <div className='flex items-center justify-between flex-wrap'>
+                  <div className='flex items-center '>
+                    <img
+                      src={CARDICON[this.state.paymentInfo.cardType]}
+                      alt=''
+                      className='h-8'
+                    />
+                    <p>...{this.state.paymentInfo.cardNumber.slice(-4)}</p>
+                  </div>
+                  <p>
+                    Amount Paid:{' '}
+                    <span className='font-medium'>{summary.total}</span>
+                  </p>
                 </div>
               </div>
             </div>

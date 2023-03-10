@@ -15,7 +15,9 @@ export default class Confirmation extends Component {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut fuga
             nesciunt alias.
           </p>
-          <button className='my-2 bg-black text-white py-4 px-14 font-medium text-lg hover:bg-stone-700'>
+          <button
+            onClick={(e) => e.preventDefault()}
+            className='my-2 bg-black text-white py-4 px-14 font-medium text-lg hover:bg-stone-700'>
             TRACK ORDER
           </button>
           <button className='my-2 border border-black py-2 px-4 hover:bg-black hover:text-white'>

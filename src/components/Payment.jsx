@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TextInput from './TextInput';
+import Input from './Input';
 import { OTHERCARDS, CARDICON } from '../utils/constants';
 import {
   cardNumberValidation,
@@ -200,7 +200,7 @@ export default class Payment extends Component {
 
           <div className='flex gap-2 flex-wrap border-b-2 py-4 items-end'>
             {paymentInputs.map((input) => (
-              <TextInput
+              <Input
                 key={input.name}
                 input={input}
                 cardType={cardType}

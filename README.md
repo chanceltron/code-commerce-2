@@ -73,9 +73,9 @@ The goal is to master components, props, state and conditional UI rendering.
 
 ### :white_check_mark: Confirmation Screen
 
-- [ ] Should show amount paid
-- [ ] Should show last 4 digits of credit card used to make the purchase
-- [ ] Add other UI as depicted below
+- [x] Should show amount paid
+- [x] Should show last 4 digits of credit card used to make the purchase
+- [x] Add other UI as depicted below
 
 ---
 

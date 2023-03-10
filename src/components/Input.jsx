@@ -6,7 +6,7 @@ import {
 } from '../utils/validations';
 import { CARDICON } from '../utils/constants';
 
-export default class TextInput extends Component {
+export default class Input extends Component {
   state = {
     showPassword: false,
     type: this.props.input.type,
@@ -51,7 +51,7 @@ export default class TextInput extends Component {
     return (
       <div
         className={`text-left w-fit ${
-          styles !== 'inline' ? 'w-full md:w-1/3 md:mr-[30rem]' : ''
+          styles !== 'inline' ? 'w-full lg:w-1/3' : ''
         }`}>
         <label htmlFor={name}>{label}</label>
         <div

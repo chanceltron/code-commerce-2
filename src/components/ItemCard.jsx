@@ -8,13 +8,12 @@ export default class ItemCard extends Component {
     const hidden = formStep > 1 ? 'hidden' : '';
     const column = formStep > 1 ? 'flex-col' : '';
     return (
-      <div className='my-3 flex flex-col md:flex-row'>
-        <div
-          className={`@container flex flex-col md:flex-row md:flex-[4] ${column}`}>
+      <div className='my-3 flex flex-col lg:flex-row'>
+        <div className={`flex flex-col ${column} lg:flex-row lg:flex-[4]`}>
           <img
             src={img}
             alt={name}
-            className='rounded-md w-fit object-cover h-fit mr-3 @md:max-w-[150px]'
+            className='rounded-md w-fit object-cover h-fit mr-3 lg:max-w-[200px]'
           />
           <div>
             <h3 className='font-medium'>{name}</h3>
@@ -22,7 +21,7 @@ export default class ItemCard extends Component {
             <p className={hidden}>{rating}</p>
           </div>
         </div>
-        <div className='flex justify-between w-full pr-6'>
+        <div className='flex justify-between w-full pr-6 md:flex-[2] lg:items-start'>
           <p className={`text-xl ${hidden}`}>{price}</p>
           <div className='flex justify-center items-center'>
             <button

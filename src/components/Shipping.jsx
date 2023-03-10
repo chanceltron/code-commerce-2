@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import stateData from '../data/state&cities.json';
-import TextInput from './TextInput';
+import Input from './Input';
 
 export default class Shipping extends Component {
   state = {
@@ -169,7 +169,7 @@ export default class Shipping extends Component {
         <div className='flex gap-2 flex-wrap border-b-2 py-2'>
           {shippingInputs.map((input) => {
             return (
-              <TextInput
+              <Input
                 key={input.name}
                 input={input}
                 value={this.state[input.name]}
