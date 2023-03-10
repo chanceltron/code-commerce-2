@@ -120,10 +120,11 @@ export default class Payment extends Component {
   submitPaymentForm = (e) => {
     e.preventDefault();
     const { cardHolderName, cardNumber, expMonth, expYear, cvv } = this.state;
-    const { submitPaymentForm, changeFormStep, total } = this.props;
+    const { submitPaymentForm, changeFormStep, total, cardType } = this.props;
     const paymentInfo = {
       cardHolderName,
       cardNumber,
+      cardType,
       expMonth,
       expYear,
       cvv,
