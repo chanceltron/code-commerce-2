@@ -13,7 +13,13 @@ export default class Checkout extends Component {
       total: 0,
     },
     discountCodes: ['discount5', 'discount10'],
-    shippingInfo: {},
+    shippingInfo: {
+      fullName: 'Test Customer',
+      address: '123 Test St',
+      postalCode: '55555',
+      state: 'TX',
+      city: 'Dallas',
+    },
     promoCode: '',
     formStep: 3,
     cartLength: 0,
@@ -153,6 +159,21 @@ export default class Checkout extends Component {
                 formStep={formStep}
                 cart={cart}
               />
+            </div>
+          )}
+          {formStep === 3 && (
+            <div className='py-4 border-b-2'>
+              <h4 className='font-medium'>Shipping Information</h4>
+              <div className='flex flex-col'>
+                <p>{this.state.shippingInfo.fullName}</p>
+                <p>{this.state.shippingInfo.address}</p>
+                <p>
+                  {this.state.shippingInfo.city},{' '}
+                  {this.state.shippingInfo.state}{' '}
+                  {this.state.shippingInfo.postalCode}
+                </p>
+                <p>{this.state.shippingInfo.country}</p>
+              </div>
             </div>
           )}
           <div className='py-4 border-b-2'>
