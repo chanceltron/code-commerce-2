@@ -32,6 +32,7 @@ export default class Shipping extends Component {
   };
 
   submitShippingForm = (e) => {
+    const { submitShippingForm, changeFormStep } = this.props;
     e.preventDefault();
     const {
       addressTitle,
@@ -45,7 +46,7 @@ export default class Shipping extends Component {
       telephone,
     } = this.state;
 
-    this.props.submitShippingForm({
+    submitShippingForm({
       addressTitle,
       fullName,
       address,
@@ -56,7 +57,7 @@ export default class Shipping extends Component {
       cellPhone,
       telephone,
     });
-    this.props.changeFormStep(3);
+    changeFormStep(3);
   };
 
   checkIfShippingFormCompleted = () => {
@@ -172,7 +173,8 @@ export default class Shipping extends Component {
                 key={input.name}
                 input={input}
                 value={this.state[input.name]}
-                checkIfShippingFormCompleted={this.checkIfShippingFormCompleted}
+                formStep={formStep}
+                checkIfFormCompleted={this.checkIfShippingFormCompleted}
                 handleInputs={(name, value) => {
                   this.setState(() => ({ [name]: value }));
                   name === 'state' && this.getCities(value);

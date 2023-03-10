@@ -21,6 +21,7 @@ export default class Checkout extends Component {
       state: 'TX',
       city: 'Dallas',
     },
+    paymentInfo: {},
     promoCode: '',
     formStep: 3,
     cartLength: 0,
@@ -116,7 +117,15 @@ export default class Checkout extends Component {
                 }}
               />
             )}
-            {formStep === 3 && <Payment total={summary.total} />}
+            {formStep === 3 && (
+              <Payment
+                total={summary.total}
+                changeFormStep={(step) => this.setState({ formStep: step })}
+                submitPaymentForm={(info) =>
+                  this.setState({ paymentInfo: info })
+                }
+              />
+            )}
           </div>
         </div>
         <div className='bg-white flex-1 m-2 px-4 rounded'>
