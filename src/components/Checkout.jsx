@@ -3,6 +3,7 @@ import ItemCard from './ItemCard';
 import Stepper from './Stepper';
 import Cart from './Cart';
 import Shipping from './Shipping';
+import Payment from './Payment';
 
 export default class Checkout extends Component {
   state = {
@@ -115,6 +116,7 @@ export default class Checkout extends Component {
                 }}
               />
             )}
+            {formStep === 3 && <Payment total={summary.total} />}
           </div>
         </div>
         <div className='bg-white flex-1 m-2 px-4 rounded'>

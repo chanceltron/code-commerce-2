@@ -8,7 +8,9 @@ export default class Cart extends Component {
     return (
       <div className='@container'>
         <div className='overflow-y-scroll max-h-[50vh] @sm:max-h-full @sm:overflow-auto'>
-          <h2 className='text-2xl font-medium p-2 border-b-2'>Cart</h2>
+          {formStep === 1 && (
+            <h2 className='text-2xl font-medium p-2 border-b-2'>Cart</h2>
+          )}
           {cart.length > 0 ? (
             cart.map((item) => (
               <ItemCard

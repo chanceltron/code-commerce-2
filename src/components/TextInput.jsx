@@ -44,7 +44,7 @@ export default class TextInput extends Component {
     const { name, label, type, icon, info, options, styles } = this.props.input;
     return (
       <div
-        className={`text-left ${
+        className={`text-left w-fit ${
           styles !== 'inline' ? 'w-full md:w-1/3 md:mr-[30rem]' : ''
         }`}>
         <label htmlFor={name}>{label}</label>
@@ -60,7 +60,6 @@ export default class TextInput extends Component {
               className='w-full py-1 outline-none bg-transparent'
               value={value}
               onChange={this.handleInputs}
-              // onBlur={(e) => handleBlurValidation(e)}
             />
           ) : null}
           {type === 'select' && (
