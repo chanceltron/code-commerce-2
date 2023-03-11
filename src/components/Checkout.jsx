@@ -16,13 +16,7 @@ export default class Checkout extends Component {
       total: 0,
     },
     discountCodes: ['discount5', 'discount10'],
-    shippingInfo: {
-      fullName: 'Test Customer',
-      address: '123 Test St',
-      postalCode: '55555',
-      state: 'TX',
-      city: 'Dallas',
-    },
+    shippingInfo: {},
     paymentInfo: {},
     promoCode: '',
     formStep: 1,
@@ -31,13 +25,12 @@ export default class Checkout extends Component {
 
   updateSummaryPrices = () => {
     const { cart } = this.props;
+    const { shipping, discount } = this.state.summary;
     const subtotal = cart
       .reduce((total, item) => {
         return total + item.price * item.quantity;
       }, 0)
       .toFixed(2);
-    const shipping = this.state.summary.shipping;
-    const discount = this.state.summary.discount;
     const total = (+subtotal + +shipping - +discount).toFixed(2);
     this.setState({ summary: { subtotal, shipping, discount, total } });
   };
@@ -196,11 +189,11 @@ export default class Checkout extends Component {
               <div className='flex flex-col'>
                 <p>{this.state.paymentInfo.cardHolderName}</p>
                 <div className='flex items-center justify-between flex-wrap'>
-                  <div className='flex items-center '>
+                  <div className='flex items-center'>
                     <img
-                      src={CARDICON[this.state.paymentInfo.cardType]}
+                      src={CARDICON[this.props.paymentInfo.cardType]}
                       alt=''
-                      className='h-8'
+                      className='h-8 w-15'
                     />
                     <p>...{this.state.paymentInfo.cardNumber.slice(-4)}</p>
                   </div>

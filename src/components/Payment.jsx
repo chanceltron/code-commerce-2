@@ -119,8 +119,9 @@ export default class Payment extends Component {
 
   submitPaymentForm = (e) => {
     e.preventDefault();
-    const { cardHolderName, cardNumber, expMonth, expYear, cvv } = this.state;
-    const { submitPaymentForm, changeFormStep, total, cardType } = this.props;
+    const { cardHolderName, cardNumber, expMonth, expYear, cvv, cardType } =
+      this.state;
+    const { submitPaymentForm, changeFormStep, total } = this.props;
     const paymentInfo = {
       cardHolderName,
       cardNumber,
@@ -157,6 +158,7 @@ export default class Payment extends Component {
         name: 'expMonth',
         type: 'select',
         options: [
+          'select',
           '01',
           '02',
           '03',
@@ -177,7 +179,18 @@ export default class Payment extends Component {
       {
         name: 'expYear',
         type: 'select',
-        options: ['23', '24', '25', '26', '27', '28', '29', '30', '31'],
+        options: [
+          'select',
+          '23',
+          '24',
+          '25',
+          '26',
+          '27',
+          '28',
+          '29',
+          '30',
+          '31',
+        ],
         label: '',
         styles: 'inline',
         error: 'expYearError',
