@@ -121,7 +121,9 @@ export default class Checkout extends Component {
                 }
               />
             )}
-            {formStep === 4 && <Confirmation />}
+            {formStep === 4 && (
+              <Confirmation cardType={this.state.paymentInfo.cardType} />
+            )}
           </div>
         </div>
         <div className='bg-white flex-1 m-2 px-4 rounded min-w-[300px]'>
@@ -191,7 +193,7 @@ export default class Checkout extends Component {
                 <div className='flex items-center justify-between flex-wrap'>
                   <div className='flex items-center'>
                     <img
-                      src={CARDICON[this.props.paymentInfo.cardType]}
+                      src={CARDICON[this.state.paymentInfo.cardType]}
                       alt=''
                       className='h-8 w-15'
                     />
