@@ -101,7 +101,7 @@ export default class Checkout extends Component {
             )}
             {formStep === 2 && (
               <Shipping
-                total={summary.total}
+                subtotal={summary.subtotal}
                 formStep={formStep}
                 submitShippingForm={(info) =>
                   this.setState({ shippingInfo: info })

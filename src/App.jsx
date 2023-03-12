@@ -17,7 +17,7 @@ export default class App extends Component {
     ],
     cart: [items[0], items[1], items[4], items[5]],
     loggedInUser: {},
-    screen: 'login',
+    screen: 'checkout',
   };
 
   createNewUser = (newUser) => {

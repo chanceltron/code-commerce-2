@@ -28,7 +28,7 @@ export default class Shipping extends Component {
   handleShippingChange = ({ target: { value } }) => {
     this.setState(() => ({ selectedShipping: value }));
     this.props.changeShippingPrice(
-      value === 'express' ? 14.99 : this.props.total > 40 ? 0 : 5.99
+      value === 'express' ? 14.99 : this.props.subtotal > 40 ? 0 : 5.99
     );
   };
 
@@ -89,10 +89,14 @@ export default class Shipping extends Component {
     }
   };
 
+  componentDidMount() {
+    this.props.changeShippingPrice(this.props.subtotal > 40 ? 0 : 5.99);
+  }
+
   render() {
     const { shippingFormCompleted, country, cities, selectedShipping } =
       this.state;
-    const { total, formStep } = this.props;
+    const { formStep } = this.props;
     const shippingInputs = [
       {
         name: 'addressTitle',
