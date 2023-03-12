@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 export default class ItemCard extends Component {
   render() {
     const { formStep, removeFromCart, changeQuantity } = this.props;
-    const { id, img, name, desc, author, rating, price, quantity } =
-      this.props.item;
+    const { id, img, name, author, rating, price, quantity } = this.props.item;
     const hidden = formStep > 1 ? 'hidden' : '';
     const column = formStep > 1 ? 'flex-col' : 'flex-row';
     return (

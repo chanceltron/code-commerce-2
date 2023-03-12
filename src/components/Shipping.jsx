@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import stateData from '../data/state&cities.json';
 import Input from './Input';
 
+const stateList = Object.keys(stateData);
+
 export default class Shipping extends Component {
   state = {
     addressTitle: '',
@@ -18,7 +20,6 @@ export default class Shipping extends Component {
     selectedShipping: 'standard',
     shippingFormCompleted: false,
   };
-  stateList = Object.keys(stateData);
 
   getCities = (state) => {
     this.setState(() => ({ cities: stateData[state] }));
@@ -133,7 +134,7 @@ export default class Shipping extends Component {
         name: 'state',
         type: 'select',
         label: 'State *',
-        options: ['Select', ...this.stateList],
+        options: ['Select', ...stateList],
         error: 'stateError',
         styles: `inline`,
       },

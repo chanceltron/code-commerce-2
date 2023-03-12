@@ -21,9 +21,7 @@ export default class App extends Component {
   };
 
   createNewUser = (newUser) => {
-    this.setState((prevState) => ({
-      users: [...prevState.users, newUser],
-    }));
+    this.setState();
   };
 
   render() {
@@ -33,7 +31,11 @@ export default class App extends Component {
         {screen === 'login' && (
           <Login
             users={users}
-            createNewUser={this.createNewUser}
+            createNewUser={(newUser) =>
+              this.setState({
+                users: [...this.state.users, newUser],
+              })
+            }
             loginUser={(email, password) =>
               this.setState({ loggedInUser: { email, password } })
             }

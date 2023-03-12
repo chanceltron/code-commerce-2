@@ -16,13 +16,7 @@ export default class Checkout extends Component {
       total: 0,
     },
     discountCodes: ['discount5', 'discount10'],
-    shippingInfo: {
-      fullName: 'Test Customer',
-      address: '123 Test St',
-      postalCode: '55555',
-      state: 'TX',
-      city: 'Dallas',
-    },
+    shippingInfo: {},
     paymentInfo: {},
     promoCode: '',
     formStep: 1,
@@ -31,13 +25,12 @@ export default class Checkout extends Component {
 
   updateSummaryPrices = () => {
     const { cart } = this.props;
+    const { shipping, discount } = this.state.summary;
     const subtotal = cart
       .reduce((total, item) => {
         return total + item.price * item.quantity;
       }, 0)
       .toFixed(2);
-    const shipping = this.state.summary.shipping;
-    const discount = this.state.summary.discount;
     const total = (+subtotal + +shipping - +discount).toFixed(2);
     this.setState({ summary: { subtotal, shipping, discount, total } });
   };
@@ -79,7 +72,10 @@ export default class Checkout extends Component {
   }
 
   render() {
-    const { formStep, summary, cartLength } = this.state;
+    const { formStep, summary, cartLength, promoCode } = this.state;
+    const { cardType, cardHolderName, cardNumber } = this.state.paymentInfo;
+    const { fullName, address, city, state, postalCode } =
+      this.state.shippingInfo;
     const { cart } = this.props;
 
     return (
@@ -128,7 +124,7 @@ export default class Checkout extends Component {
                 }
               />
             )}
-            {formStep === 4 && <Confirmation />}
+            {formStep === 4 && <Confirmation cardType={cardType} />}
           </div>
         </div>
         <div className='bg-white flex-1 m-2 px-4 rounded min-w-[300px]'>
@@ -149,7 +145,7 @@ export default class Checkout extends Component {
                   onSubmit={this.applyDiscount}
                   className='flex justify-between gap-3'>
                   <input
-                    value={this.state.promoCode}
+                    value={promoCode}
                     type='text'
                     placeholder='Enter promo code'
                     className='font-code border-2 border-stone-500 p-2 w-full'
@@ -179,14 +175,11 @@ export default class Checkout extends Component {
             <div className='py-4 border-b-2'>
               <h4 className='font-medium'>Shipping Information</h4>
               <div className='flex flex-col'>
-                <p>{this.state.shippingInfo.fullName}</p>
-                <p>{this.state.shippingInfo.address}</p>
+                <p>{fullName}</p>
+                <p>{address}</p>
                 <p>
-                  {this.state.shippingInfo.city},{' '}
-                  {this.state.shippingInfo.state}{' '}
-                  {this.state.shippingInfo.postalCode}
+                  {city}, {state} {postalCode}
                 </p>
-                <p>{this.state.shippingInfo.country}</p>
               </div>
             </div>
           )}
@@ -194,19 +187,15 @@ export default class Checkout extends Component {
             <div className='py-4 border-b-2'>
               <h4 className='font-medium'>Payment Information</h4>
               <div className='flex flex-col'>
-                <p>{this.state.paymentInfo.cardHolderName}</p>
+                <p>{cardHolderName}</p>
                 <div className='flex items-center justify-between flex-wrap'>
-                  <div className='flex items-center '>
-                    <img
-                      src={CARDICON[this.state.paymentInfo.cardType]}
-                      alt=''
-                      className='h-8'
-                    />
-                    <p>...{this.state.paymentInfo.cardNumber.slice(-4)}</p>
+                  <div className='flex items-center'>
+                    <img src={CARDICON[cardType]} alt='' className='h-8 w-15' />
+                    <p>...{cardNumber.slice(-4)}</p>
                   </div>
                   <p>
                     Amount Paid:{' '}
-                    <span className='font-medium'>{summary.total}</span>
+                    <span className='font-medium'>${summary.total}</span>
                   </p>
                 </div>
               </div>

@@ -20,6 +20,64 @@ const INIT_VALUES = {
   loginPassword: '',
 };
 
+const loginInputs = [
+  {
+    name: 'loginEmail',
+    type: 'email',
+    label: 'Email Address',
+    error: 'loginEmailError',
+  },
+  {
+    name: 'loginPassword',
+    type: 'password',
+    icon: true,
+    label: 'Password',
+    error: 'loginPasswordError',
+  },
+];
+
+const signupInputs = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email Address *',
+    error: 'emailError',
+  },
+  {
+    name: 'password',
+    type: 'password',
+    icon: 'password',
+    label: 'Create Password *',
+    info: 'Password must be 8-20 characters, including at least once capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
+    error: 'passwordComplexityError',
+  },
+  {
+    name: 'confirmPassword',
+    type: 'password',
+    icon: 'password',
+    label: 'Confirm Password *',
+    error: 'passwordMatchError',
+  },
+  {
+    name: 'firstName',
+    type: 'text',
+    label: 'First Name *',
+    error: 'firstNameError',
+  },
+  {
+    name: 'lastName',
+    type: 'text',
+    label: 'Last Name *',
+    error: 'lastNameError',
+  },
+  {
+    name: 'postalCode',
+    type: 'text',
+    label: 'Postal Code',
+    error: 'postalCodeError',
+  },
+];
+
 export default class Login extends Component {
   state = {
     inputValues: INIT_VALUES,
@@ -58,11 +116,9 @@ export default class Login extends Component {
   };
 
   errorStateToggle = (errorText) => {
-    if (errorText) {
-      this.setState({ signupHasError: true });
-    } else {
-      this.setState({ signupHasError: false });
-    }
+    errorText
+      ? this.setState({ signupHasError: true })
+      : this.setState({ signupHasError: false });
   };
 
   handleBlurValidation = ({ target: { name, value } }) => {
@@ -151,13 +207,14 @@ export default class Login extends Component {
   loginUser = (e) => {
     e.preventDefault();
     const { loginEmail, loginPassword } = this.state.inputValues;
+    const { users, loginUser, changeScreen } = this.props;
     let errorText;
 
-    this.props.users.find((user) => {
+    users.find((user) => {
       if (user.email === loginEmail && user.password === loginPassword) {
-        this.props.loginUser(loginEmail, loginPassword);
+        loginUser(loginEmail, loginPassword);
         this.resetInputs();
-        this.props.changeScreen('checkout');
+        changeScreen('checkout');
       } else {
         errorText = 'Email or password is incorrect';
         this.setState((prevState) => ({
@@ -168,70 +225,14 @@ export default class Login extends Component {
   };
 
   render() {
-    const loginInputs = [
-      {
-        name: 'loginEmail',
-        type: 'email',
-        label: 'Email Address',
-        error: 'loginEmailError',
-      },
-      {
-        name: 'loginPassword',
-        type: 'password',
-        icon: true,
-        label: 'Password',
-        error: 'loginPasswordError',
-      },
-    ];
-
-    const signupInputs = [
-      {
-        name: 'email',
-        type: 'email',
-        label: 'Email Address *',
-        error: 'emailError',
-      },
-      {
-        name: 'password',
-        type: 'password',
-        icon: 'password',
-        label: 'Create Password *',
-        info: 'Password must be 8-20 characters, including at least once capital letter, at least one small letter, one number and one special character - ! @ # $ % ^ & * ( ) _ +',
-        error: 'passwordComplexityError',
-      },
-      {
-        name: 'confirmPassword',
-        type: 'password',
-        icon: 'password',
-        label: 'Confirm Password *',
-        error: 'passwordMatchError',
-      },
-      {
-        name: 'firstName',
-        type: 'text',
-        label: 'First Name *',
-        error: 'firstNameError',
-      },
-      {
-        name: 'lastName',
-        type: 'text',
-        label: 'Last Name *',
-        error: 'lastNameError',
-      },
-      {
-        name: 'postalCode',
-        type: 'text',
-        label: 'Postal Code',
-        error: 'postalCodeError',
-      },
-    ];
+    const { activeScreen, inputValues, signupHasError, error } = this.state;
 
     return (
       <div className='m-auto rounded-md shadow-2xl max-w-lg py-8'>
         <div className='flex justify-around text-center mb-3'>
           <button
             className={`cursor-pointer w-full border-b-2 ${
-              this.state.activeScreen === 'signup' && 'border-b-pink-600 '
+              activeScreen === 'signup' && 'border-b-pink-600 '
             }`}
             value='signup'
             onClick={(e) => this.handleSwitchScreen(e)}>
@@ -239,7 +240,7 @@ export default class Login extends Component {
           </button>
           <button
             className={`cursor-pointer w-full border-b-2 ${
-              this.state.activeScreen === 'login' && 'border-b-pink-600 '
+              activeScreen === 'login' && 'border-b-pink-600 '
             }`}
             value='login'
             onClick={(e) => this.handleSwitchScreen(e)}>
@@ -247,36 +248,34 @@ export default class Login extends Component {
           </button>
         </div>
         <form action='' className='flex flex-col p-4'>
-          {this.state.activeScreen === 'signup'
+          {activeScreen === 'signup'
             ? signupInputs.map((input) => (
                 <Input
                   key={input.name}
                   input={input}
-                  value={this.state.inputValues[input.name]}
+                  value={inputValues[input.name]}
                   handleInputs={this.handleInputs}
                   handleBlurValidation={this.handleBlurValidation}
-                  errorMessage={this.state.error[input.error]}
+                  errorMessage={error[input.error]}
                 />
               ))
             : loginInputs.map((input) => (
                 <Input
                   key={input.name}
                   input={input}
-                  value={this.state.inputValues[input.name]}
+                  value={inputValues[input.name]}
                   handleInputs={this.handleInputs}
                   handleBlurValidation={this.handleBlurValidation}
-                  errorMessage={this.state.error[input.error]}
+                  errorMessage={error[input.error]}
                 />
               ))}
           <button
-            disabled={this.state.signupHasError}
+            disabled={signupHasError}
             className={`bg-pink-600 text-white text-xl py-2 my-2 disabled:pointer-events-none disabled:opacity-30`}
             onClick={
-              this.state.activeScreen === 'signup'
-                ? this.handleNewUser
-                : this.loginUser
+              activeScreen === 'signup' ? this.handleNewUser : this.loginUser
             }>
-            Sign {this.state.activeScreen === 'signup' ? 'up' : 'in'}
+            Sign {activeScreen === 'signup' ? 'up' : 'in'}
           </button>
           <fieldset className='border-t'>
             <legend className='mx-auto px-4'>or</legend>
@@ -284,7 +283,7 @@ export default class Login extends Component {
           <button
             className='bg-[#4267B2] text-white text-xl py-2 my-2'
             onClick={(e) => e.preventDefault()}>
-            Sign {this.state.activeScreen === 'signup' ? 'up' : 'in'} with{' '}
+            Sign {activeScreen === 'signup' ? 'up' : 'in'} with{' '}
             <span className='font-semibold'>Facebook</span>
           </button>
         </form>
