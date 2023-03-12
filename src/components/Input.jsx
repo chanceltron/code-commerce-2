@@ -97,12 +97,7 @@ export default class Input extends Component {
           {icon === 'card' && (
             <div className='flex items-center justify-center'>
               {cardType && (
-                <img
-                  src={`${CARDICON[cardType]}`}
-                  className={`w-fit h-8 ${console.log({
-                    'render: ': cardType,
-                  })}`}
-                />
+                <img src={`${CARDICON[cardType]}`} className='w-fit h-8' />
               )}
             </div>
           )}
