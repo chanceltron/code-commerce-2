@@ -1,7 +1,7 @@
 export const items = [
   {
     id: 1,
-    img: '/src/assets/nextreact.png',
+    img: '/images/nextreact.png',
     name: 'Next.js Functional Video Uploader',
     desc: 'Learn NextJS from the ground up and build production-ready, fullstack ReactJS apps with the NextJS framework!',
     author: 'Maximilian Schwarzmüller',
@@ -11,7 +11,7 @@ export const items = [
   },
   {
     id: 2,
-    img: '/src/assets/Learn-Reactjs.png',
+    img: '/images/Learn-Reactjs.png',
     name: 'React Todo App',
     desc: 'Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!',
     author: 'Maximilian Schwarzmüller',
@@ -21,7 +21,7 @@ export const items = [
   },
   {
     id: 3,
-    img: '/src/assets/react_js.png',
+    img: '/images/react_js.png',
     name: 'Component Library for React',
     desc: 'Updated! Become a Senior React Developer. Build a massive E-commerce app with Redux, Hooks, GraphQL, Stripe, Firebase',
     author: 'Andrei Neagoie, Yihua Zhang, Zero to Mastery',
@@ -31,7 +31,7 @@ export const items = [
   },
   {
     id: 4,
-    img: '/src/assets/reactNative.png',
+    img: '/images/reactNative.png',
     name: 'Graphing Component in React',
     desc: 'Learn React by Building 25+ Interesting Projects',
     author: 'John Smilga',
@@ -41,7 +41,7 @@ export const items = [
   },
   {
     id: 5,
-    img: '/src/assets/javascript.png',
+    img: '/images/javascript.png',
     name: 'Useful Functions for Javascript',
     desc: "An advanced JavaScript course for everyone! Scope, closures, prototypes, 'this', build your own framework, and more.",
     author: 'Anthony Alicea',
@@ -51,7 +51,7 @@ export const items = [
   },
   {
     id: 6,
-    img: '/src/assets/beginnerReact.png',
+    img: '/images/beginnerReact.png',
     name: 'React Live Audio Stream Component',
     desc: 'Master React and Redux Toolkit. Includes RTK Query, tons of custom hooks, and more! Course 100% Updated November 2022',
     author: 'Stephen Grider',

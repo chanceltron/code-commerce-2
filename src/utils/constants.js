@@ -1,8 +1,8 @@
 // CREDIT CARDS
-import VISA_ICON from '../assets/visa.png';
-import MASTERCARD_ICON from '../assets/masterCard.png';
-import AMEX_ICON from '../assets/amex.png';
-import DISCOVER_ICON from '../assets/discover.png';
+import VISA_ICON from '/src/images/visa.png';
+import MASTERCARD_ICON from '/src/images/masterCard.png';
+import AMEX_ICON from '/src/images/amex.png';
+import DISCOVER_ICON from '/src/images/discover.png';
 
 export const OTHERCARDS = [
   /[1-9]/,
