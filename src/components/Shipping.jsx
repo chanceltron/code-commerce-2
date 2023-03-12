@@ -89,12 +89,65 @@ export default class Shipping extends Component {
     }
   };
 
+  handleBlurValidation = ({ target: { name, value } }) => {
+    let errorText;
+    switch (name) {
+      case 'email':
+        errorText = emailValidation(this.props.users, value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, emailError: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'password':
+        errorText = passwordComplexityValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, passwordComplexityError: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'confirmPassword':
+        errorText = passwordMatchValidation(
+          this.state.inputValues.password,
+          value
+        );
+        this.setState((prevState) => ({
+          error: { ...prevState.error, passwordMatchError: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'firstName':
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, firstNameError: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'lastName':
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, lastNameError: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'postalCode':
+        errorText = postalCodeValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, postalCodeError: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      default:
+        break;
+    }
+  };
+
   componentDidMount() {
     this.props.changeShippingPrice(this.props.subtotal > 40 ? 0 : 5.99);
   }
 
   render() {
-    const { shippingFormCompleted, country, cities, selectedShipping } =
+    const { shippingFormCompleted, country, cities, selectedShipping, error } =
       this.state;
     const { formStep } = this.props;
     const shippingInputs = [
@@ -184,6 +237,7 @@ export default class Shipping extends Component {
                   this.setState(() => ({ [name]: value }));
                   name === 'state' && this.getCities(value);
                 }}
+                errorMessage={error[input.error]}
               />
             );
           })}
