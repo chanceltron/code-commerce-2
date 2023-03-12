@@ -8,7 +8,7 @@ import {
   postalCodeValidation,
 } from '../utils/validations';
 
-// SIGNUP/LOGIN INitial Values
+// SIGNUP/LOGIN Initial Values
 const INIT_VALUES = {
   email: '',
   password: '',
@@ -83,7 +83,34 @@ export default class Login extends Component {
     inputValues: INIT_VALUES,
     activeScreen: 'signup',
     error: {},
-    signupHasError: false,
+    signupHasError: true,
+    formCompleted: false,
+  };
+
+  checkIfFormCompleted = () => {
+    const {
+      email,
+      password,
+      confirmPassword,
+      firstName,
+      lastName,
+      postalCode,
+      loginEmail,
+      loginPassword,
+    } = this.state.inputValues;
+    if (this.state.activeScreen === 'signup') {
+      if (email && password && confirmPassword && firstName && lastName) {
+        this.setState(() => ({ formCompleted: true }));
+      } else {
+        this.setState(() => ({ formCompleted: false }));
+      }
+    } else if (this.state.activeScreen === 'login') {
+      if (loginEmail && loginPassword) {
+        this.setState(() => ({ formCompleted: true }));
+      } else {
+        this.setState(() => ({ formCompleted: false }));
+      }
+    }
   };
 
   handleSwitchScreen = (e) => {
@@ -101,6 +128,7 @@ export default class Login extends Component {
         [name]: value,
       },
     }));
+    this.checkIfFormCompleted();
   };
 
   resetInputs = () => {
@@ -225,7 +253,7 @@ export default class Login extends Component {
   };
 
   render() {
-    const { activeScreen, inputValues, signupHasError, error } = this.state;
+    const { activeScreen, inputValues, formCompleted, error } = this.state;
 
     return (
       <div className='m-auto rounded-md shadow-2xl max-w-lg py-8'>
@@ -270,7 +298,7 @@ export default class Login extends Component {
                 />
               ))}
           <button
-            disabled={signupHasError}
+            disabled={!formCompleted}
             className={`bg-pink-600 text-white text-xl py-2 my-2 disabled:pointer-events-none disabled:opacity-30`}
             onClick={
               activeScreen === 'signup' ? this.handleNewUser : this.loginUser
