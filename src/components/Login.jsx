@@ -191,7 +191,7 @@ export default class Login extends Component {
         this.errorStateToggle(errorText);
         break;
       case 'postalCode':
-        errorText = postalCodeValidation(value);
+        errorText = postalCodeValidation(value, false);
         this.setState((prevState) => ({
           error: { ...prevState.error, postalCodeError: errorText },
         }));

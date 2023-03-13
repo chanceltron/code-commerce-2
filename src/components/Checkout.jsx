@@ -19,7 +19,7 @@ export default class Checkout extends Component {
     shippingInfo: {},
     paymentInfo: {},
     promoCode: '',
-    formStep: 1,
+    formStep: 3,
     cartLength: 0,
   };
 

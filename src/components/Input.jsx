@@ -75,6 +75,7 @@ export default class Input extends Component {
               name={name}
               id={name}
               className='py-1 max-w-full outline-none bg-transparent'
+              onBlur={handleBlurValidation}
               onChange={this.handleInputs}>
               {options.map((option, index) => (
                 <option key={index} value={option}>

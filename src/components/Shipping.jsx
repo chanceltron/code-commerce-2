@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import stateData from '../data/state&cities.json';
+import {
+  onlyTextValidation,
+  phoneValidation,
+  postalCodeValidation,
+  requiredFieldValidation,
+} from '../utils/validations';
 import Input from './Input';
 
 const stateList = Object.keys(stateData);
@@ -89,51 +95,50 @@ export default class Shipping extends Component {
     }
   };
 
+  errorStateToggle = (errorText) => {
+    errorText
+      ? this.setState({ signupHasError: true })
+      : this.setState({ signupHasError: false });
+  };
+
   handleBlurValidation = ({ target: { name, value } }) => {
     let errorText;
     switch (name) {
-      case 'email':
-        errorText = emailValidation(this.props.users, value);
-        this.setState((prevState) => ({
-          error: { ...prevState.error, emailError: errorText },
-        }));
-        this.errorStateToggle(errorText);
-        break;
-      case 'password':
-        errorText = passwordComplexityValidation(value);
-        this.setState((prevState) => ({
-          error: { ...prevState.error, passwordComplexityError: errorText },
-        }));
-        this.errorStateToggle(errorText);
-        break;
-      case 'confirmPassword':
-        errorText = passwordMatchValidation(
-          this.state.inputValues.password,
-          value
-        );
-        this.setState((prevState) => ({
-          error: { ...prevState.error, passwordMatchError: errorText },
-        }));
-        this.errorStateToggle(errorText);
-        break;
-      case 'firstName':
+      case 'fullName':
         errorText = onlyTextValidation(value);
         this.setState((prevState) => ({
-          error: { ...prevState.error, firstNameError: errorText },
+          error: { ...prevState.error, [`${name}Error`]: errorText },
         }));
         this.errorStateToggle(errorText);
         break;
-      case 'lastName':
-        errorText = onlyTextValidation(value);
+      case 'cellPhone':
+        errorText = phoneValidation(value, true);
         this.setState((prevState) => ({
-          error: { ...prevState.error, lastNameError: errorText },
+          error: { ...prevState.error, [`${name}Error`]: errorText },
         }));
         this.errorStateToggle(errorText);
+        break;
+      case 'telephone':
+        errorText = phoneValidation(value, false);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'addressTitle':
+      case 'address':
+      case 'state':
+      case 'city':
+        console.log(value);
+        errorText = requiredFieldValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
         break;
       case 'postalCode':
-        errorText = postalCodeValidation(value);
+        errorText = postalCodeValidation(value, true);
         this.setState((prevState) => ({
-          error: { ...prevState.error, postalCodeError: errorText },
+          error: { ...prevState.error, [`${name}Error`]: errorText },
         }));
         this.errorStateToggle(errorText);
         break;
@@ -237,6 +242,7 @@ export default class Shipping extends Component {
                   this.setState(() => ({ [name]: value }));
                   name === 'state' && this.getCities(value);
                 }}
+                handleBlurValidation={this.handleBlurValidation}
                 errorMessage={error[input.error]}
               />
             );
