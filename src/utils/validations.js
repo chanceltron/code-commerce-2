@@ -67,16 +67,31 @@ export const onlyTextValidation = (value) => {
   }
 };
 
-export const postalCodeValidation = (value) => {
+export const postalCodeValidation = (value, required) => {
   if (value) {
     if (/^\d{5}$/i.test(value)) {
       undefined;
     } else {
       return 'Invalid Postal Code';
     }
-  } else {
-    undefined;
+  } else if (required) {
+    return 'This field is required';
   }
+  return undefined;
+};
+
+export const phoneValidation = (value, required) => {
+  const strippedNumber = value.replace(/\D+/g, '');
+  if (strippedNumber) {
+    if (/^\d{10}$/i.test(strippedNumber)) {
+      return undefined;
+    } else {
+      return 'Invalid phone number';
+    }
+  } else if (required) {
+    return 'This field is required';
+  }
+  return undefined;
 };
 
 export const emailValidation = (users, value) => {
@@ -125,6 +140,13 @@ export const passwordMatchValidation = (initPassword, confirmPassword) => {
   }
 };
 
+export const requiredFieldValidation = (value) => {
+  if (value === '' || value === 'Select') {
+    return 'This field is required';
+  }
+  return undefined;
+};
+
 export const formatPhoneNumber = (number) => {
   if (!number) return number;
   const phoneNumber = number.replace(/[^\d]/g, '');
@@ -139,8 +161,8 @@ export const formatPhoneNumber = (number) => {
 };
 
 export const formatZipCode = (zip) => {
-  if (!zip) return zip;
-  return zip.replace(/[^\d]/g, '');
+  if (zip === '') return zip;
+  return zip.replace(/[^\d]/i, '');
 };
 
 export const formatName = (name) => {

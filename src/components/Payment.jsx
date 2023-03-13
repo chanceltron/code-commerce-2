@@ -6,6 +6,7 @@ import {
   onlyTextValidation,
   expiryValidation,
   securityCodeValidation,
+  requiredFieldValidation,
 } from '../utils/validations';
 
 export default class Payment extends Component {
@@ -34,9 +35,9 @@ export default class Payment extends Component {
     return '';
   };
 
-  handleValidation = (type, value) => {
+  handleBlurValidation = ({ target: { name, value } }) => {
     let errorText;
-    switch (type) {
+    switch (name) {
       case 'cardNumber':
         errorText = cardNumberValidation(value);
         this.setState((prevState) => ({
@@ -48,6 +49,14 @@ export default class Payment extends Component {
         errorText = onlyTextValidation(value);
         this.setState((prevState) => ({
           error: { ...prevState.error, cardHolderNameError: errorText },
+        }));
+        break;
+      case 'expMonth':
+      case 'expYear':
+        console.log(value);
+        errorText = requiredFieldValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
         }));
         break;
       case 'cvv':
@@ -137,7 +146,7 @@ export default class Payment extends Component {
 
   render() {
     const { paymentFormCompleted, cardType } = this.state;
-    const { cart, changeFormStep, total } = this.props;
+    const { changeFormStep, total } = this.props;
     const paymentInputs = [
       {
         name: 'cardHolderName',
@@ -158,7 +167,7 @@ export default class Payment extends Component {
         name: 'expMonth',
         type: 'select',
         options: [
-          'select',
+          'Select',
           '01',
           '02',
           '03',
@@ -180,7 +189,7 @@ export default class Payment extends Component {
         name: 'expYear',
         type: 'select',
         options: [
-          'select',
+          'Select',
           '23',
           '24',
           '25',
@@ -220,9 +229,7 @@ export default class Payment extends Component {
                 value={this.state[input.name]}
                 handleInputs={this.handleInputData}
                 checkIfFormCompleted={this.checkIfPaymentFormCompleted}
-                handleBlurValidation={({ target: { name, value } }) =>
-                  this.handleValidation(name, value)
-                }
+                handleBlurValidation={(e) => this.handleBlurValidation(e)}
                 errorMessage={this.state.error[input.error]}
               />
             ))}

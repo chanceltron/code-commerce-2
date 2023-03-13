@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import stateData from '../data/state&cities.json';
+import {
+  onlyTextValidation,
+  phoneValidation,
+  postalCodeValidation,
+  requiredFieldValidation,
+} from '../utils/validations';
 import Input from './Input';
 
 const stateList = Object.keys(stateData);
@@ -89,12 +95,63 @@ export default class Shipping extends Component {
     }
   };
 
+  errorStateToggle = (errorText) => {
+    errorText
+      ? this.setState({ signupHasError: true })
+      : this.setState({ signupHasError: false });
+  };
+
+  handleBlurValidation = ({ target: { name, value } }) => {
+    let errorText;
+    switch (name) {
+      case 'fullName':
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'cellPhone':
+        errorText = phoneValidation(value, true);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'telephone':
+        errorText = phoneValidation(value, false);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      case 'addressTitle':
+      case 'address':
+      case 'state':
+      case 'city':
+        errorText = requiredFieldValidation(value);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
+        break;
+      case 'postalCode':
+        errorText = postalCodeValidation(value, true);
+        this.setState((prevState) => ({
+          error: { ...prevState.error, [`${name}Error`]: errorText },
+        }));
+        this.errorStateToggle(errorText);
+        break;
+      default:
+        break;
+    }
+  };
+
   componentDidMount() {
     this.props.changeShippingPrice(this.props.subtotal > 40 ? 0 : 5.99);
   }
 
   render() {
-    const { shippingFormCompleted, country, cities, selectedShipping } =
+    const { shippingFormCompleted, country, cities, selectedShipping, error } =
       this.state;
     const { formStep } = this.props;
     const shippingInputs = [
@@ -184,6 +241,8 @@ export default class Shipping extends Component {
                   this.setState(() => ({ [name]: value }));
                   name === 'state' && this.getCities(value);
                 }}
+                handleBlurValidation={this.handleBlurValidation}
+                errorMessage={error[input.error]}
               />
             );
           })}
