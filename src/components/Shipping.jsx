@@ -129,7 +129,6 @@ export default class Shipping extends Component {
       case 'address':
       case 'state':
       case 'city':
-        console.log(value);
         errorText = requiredFieldValidation(value);
         this.setState((prevState) => ({
           error: { ...prevState.error, [`${name}Error`]: errorText },
